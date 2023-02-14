@@ -17,7 +17,7 @@ class Parameters:
     EPOCHS_SU = 4
     TRAIN_US = False
     TRAIN_SU = True
-    INFERENCE = False
+    INFERENCE = True
     N_VIEWS = 2
     RATIO = 0.8
     REDUC_FACTOR = 0.01   # for a toy dataset
@@ -33,7 +33,7 @@ class Parameters:
     NUM_CLASSES=7
     ARCH="res18"
     LAMBD = 0.000051    # separation bewteen the parts of the loss function, defautl: 0.0051
-    PLOTTING_SU = False
-    PLOTTING_US = True
+    PLOTTING_SU = True
+    PLOTTING_US = False
     SANITY_CHECK_US = False
     SANITY_CHECK_SU = False

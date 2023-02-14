@@ -288,7 +288,8 @@ def prepare_data_feature(model, dataset, bs, shuffle=None):
 
 def loading_model(arch=ARCH):
 
-    path_model_res18 = Path("/mnt/narval/narval_BL/contrastive_learning/Narval/saved_models/Barlow_twins/Barlow/weights/")
+    
+    path_model_res18 = Path("/mnt/narval/narval_BL/submeeting_2022/barlow_twins/saved_models/barlow/")
     str_res18 ="epoch=7-step=1879.ckpt"
 
     if arch=="res18":
@@ -362,7 +363,7 @@ def supervised_training(lr=LR_SU, wd=WEIGHT_DECAY_SU):
 # load the logistic regression model for inference
 def load_logistic():
 
-    path_model = Path("/mnt/narval/narval_BL/contrastive_learning/Narval/saved_models/Barlow_twins/LogisticRegression/weights/")
+    path_model = Path("/mnt/narval/narval_BL/submeeting_2022/barlow_twins/saved_models/logistic/")
     saved_model = "epoch=3-step=291.ckpt"
 
     path_model_best = path_model/saved_model

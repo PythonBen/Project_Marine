@@ -1,7 +1,8 @@
 ### installation
 create a virtual environnement and use
- pip install -r requirements.txt
- 
+```
+pip install -r requirements.txt
+```
  
 ### running
 select the parametes in the config_param.py file and choose if you want to train the contrastive unsupervised part or the supervised logistic classier part.
@@ -17,12 +18,14 @@ on multilabel classification on our current submeeting 2022 dataset.
 
 
 
-To see the results for the unsupervised training with tensorboard: go to ./saved_models/ContrastiveLearning/SimCLR, then :
-
+To see the results for the unsupervised training with tensorboard:
+```
+go to ./saved_models/ContrastiveLearning/SimCLR, then :
 tensorboard --logdir=lightning_logs
-
+```
 To see the results for the supervised logistic regression with tensorboard:
+
+```
 go to ./saved_models/ContrastiveLearning/LogisticRegression then:
-
 tensorboard --logdir=lightning_logs
-
+```

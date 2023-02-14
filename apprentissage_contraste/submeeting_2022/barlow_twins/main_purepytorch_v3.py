@@ -57,21 +57,22 @@ print(f'device:{device}')
 
 cwd = Path.cwd()
 path2weights = cwd / "saved_model_purtorch"
-path2weights.mkdir(parents=True, exist_ok=True)
-path2weights_us = path2weights/f"barlow_weights_bs{BS_US_train}_epochs100.pt"
+path2weights.mkdir(parents=True, exist_ok=True)            # if saved_model_purtorch folder does not exist, it is created in the current working directory
+if TRAIN_US == False:
+    path2weights_us = Path(f"/mnt/narval/narval_BL/submeeting_2022/barlow_twins/saved_models/saved_model_purtorch/barlow_weights_bs{BS_US_train}_epochs100.pt")
+else:
+    path2weights_us = path2weighs/"contrastive_weights.pt"
+# all paths "with /mnt/narval/narval_BL/" from Ensta bretagne serveur cannot be modified or written without superuser root, can only read them
+# so, if we do contrastive unsupervised training (usually on large batch and many epochs, we need to saved the best weights in your local folder.                    
 path2weights_su = path2weights/"log_reg_weights.pt"
+
+
 #********************************Tensorboard***************************************************
 path_logs_us = "./runs_us/exp"
 path_logs_su = "./runs_su/exp"
-if TRAIN_US:
-    path_log = path_logs_us
-elif TRAIN_SU:
-    path_log = path_logs_su
-if INFERENCE == True:
-    path_log = None
 
-print(f'tensorboard writer in:{path_log}')
-writer  = SummaryWriter(path_log)
+
+writer  = SummaryWriter(path_logs_su)                 # needed to write metrics and watch them with tensorboar
 
 
 # ********************** unsupervised training, with barlow model *****************************
@@ -233,8 +234,8 @@ def train_val(params):
             best_loss = valid_loss
             best_model_wts = copy.deepcopy(model.state_dict())
             # store weights in a local file
-            torch.save(model.state_dict(), path2weights_us)
-            print("copied best model weights")
+            torch.save(model.state_dict(), path2weights_us)              # if unsupervised training, make sure that path2weights_us is your local directory 
+            print("copied best model weights")                           # will not work if it is ensta serveur, because do not have permission for writing
         lr_scheduler.step(valid_loss)
         if lr_scheduler !=get_lr(opt):
             print("loading best model weights!")
@@ -389,7 +390,8 @@ def loading_model(arch=ARCH, device=device):
     """ load the best self supervised model obtained """
     #path_model_res18 = Path('/media/ben/Data_linux/code/submeeting_code/code/saved_model_purtorch/')
     #path_model_res18 = Path('/home/lepersbe/Narval/submeeting_2022/code/saved_model_purtorch/')
-    path_model_res18 = Path('/mnt/narval/narval_BL/contrastive_learning/Narval/saved_model_purtorch/')
+    #path_model_res18 = Path('/mnt/narval/narval_BL/contrastive_learning/Narval/saved_model_purtorch/')
+    path_model_res18 = Path('/mnt/narval/narval_BL/submeeting_2022/barlow_twins/saved_models/saved_model_purtorch/')
     #str_res18 = "barlow_weights.pt"
     str_res18 =  "barlow_weights_bs256_epochs100.pt"
 
